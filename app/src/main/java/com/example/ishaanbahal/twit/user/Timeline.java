@@ -8,7 +8,6 @@ import com.example.ishaanbahal.twit.constants.Constants;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Observable;
 
 import javax.inject.Inject;
 

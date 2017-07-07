@@ -1,6 +1,7 @@
 package com.example.ishaanbahal.twit.user;
 
 import android.content.Context;
+import android.databinding.DataBindingUtil;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -13,7 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.ishaanbahal.twit.R;
-import com.squareup.picasso.Picasso;
+import com.example.ishaanbahal.twit.databinding.ItemTimelineBinding;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -59,32 +60,14 @@ public class TimelineAdapter extends ArrayAdapter<Status> implements View.OnClic
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        Status status = getItem(position);
-        ViewHolder viewHolder;
+        ItemTimelineBinding itemTimelineBinding;
 
-        if(convertView==null){
-            LayoutInflater inflater = LayoutInflater.from(getContext());
-            convertView = inflater.inflate(R.layout.item_timeline, parent, false);
-            viewHolder = new ViewHolder(convertView);
-            convertView.setTag(viewHolder);
-        }else{
-            viewHolder = (ViewHolder) convertView.getTag();
+        LayoutInflater inflater = LayoutInflater.from(getContext());
+        itemTimelineBinding = DataBindingUtil.getBinding(convertView);
+        if (itemTimelineBinding==null){
+            itemTimelineBinding = ItemTimelineBinding.inflate(inflater, parent, false);
         }
-        viewHolder.name.setText(status.getName());
-        viewHolder.username.setText(status.getUsername());
-        viewHolder.status.setText(status.getTweet());
-
-        Picasso.with(getContext())
-                .load(status.getImageUrl()).into(viewHolder.profilePic);
-
-        if(status.getMediaUrl()!=null){
-            Picasso.with(getContext()).load(status.getMediaUrl()).into(viewHolder.mediaPic);
-            viewHolder.mediaPic.setVisibility(View.VISIBLE);
-        }else{
-            viewHolder.mediaPic.setVisibility(View.GONE);
-        }
-
-        convertView.setOnClickListener(this);
-        return convertView;
+        itemTimelineBinding.setStatus(getItem(position));
+        return itemTimelineBinding.getRoot();
     }
 }
