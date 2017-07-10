@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import twitter4j.MediaEntity;
 import twitter4j.Twitter;
@@ -30,11 +31,11 @@ public class Timeline extends AsyncTask<String, Void, User> {
     private ArrayList<com.example.ishaanbahal.twit.user.Status> _statuses;
 
     @Inject
-    public Timeline(HomeActivity activity, String token, String tokenSecret, Long userId){
-        this.activity = activity;
+    public Timeline(@Named("activity") HomeActivity activity, @Named("token") String token,@Named("tokenSecret") String tokenSecret,@Named("userId") Long userId){
         this.token = token;
         this.tokenSecret = tokenSecret;
         this.userId = userId;
+        this.activity=activity;
     }
 
     @Override

@@ -17,12 +17,15 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.ishaanbahal.twit.user.DaggerTimelineComponent;
 import com.example.ishaanbahal.twit.user.Status;
 import com.example.ishaanbahal.twit.user.Timeline;
 import com.example.ishaanbahal.twit.user.TimelineAdapter;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -33,7 +36,7 @@ public class HomeActivity extends AppCompatActivity {
     private String token, tokenSecret;
     private Long userId;
     private TimelineAdapter _timelineAdapter;
-    private Timeline timeline;
+    @Inject Timeline timeline;
 
     @BindView(R.id.user_image_thumbnail)
     ImageView userThumbnail;
@@ -76,7 +79,14 @@ public class HomeActivity extends AppCompatActivity {
         token = intent.getStringExtra(LoginActivity.TOKEN);
         tokenSecret = intent.getStringExtra(LoginActivity.TOKEN_SECRET);
         userId = intent.getLongExtra(LoginActivity.USER_ID, 0L);
-        new Timeline(this, token, tokenSecret, userId).execute();
+        timeline = DaggerTimelineComponent.builder()
+                .token(token)
+                .tokenSecret(tokenSecret)
+                .userId(userId)
+                .activity(this)
+                .build()
+                .timeline();
+        timeline.execute();
     }
 
     public void setData(User user, ArrayList<Status> _statuses){
