@@ -1,80 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:paddingBottom="16dp"
-    android:background="?selectableItemBackground">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <TextView
-        android:id="@+id/name"
-        android:layout_width="wrap_content"
+    <data>
+
+        <variable
+            name="status"
+            type="com.example.ishaanbahal.twit.user.Status" />
+        <variable
+            name="adapter"
+            type="com.example.ishaanbahal.twit.user.TimelineAdapter" />
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Full Name"
-        android:textSize="@dimen/text_size_14"
-        android:textColor="@color/blue"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="16dp"
-        app:layout_constraintLeft_toRightOf="@+id/profile_pic"
-        android:layout_marginLeft="14dp"
-        android:layout_marginStart="14dp" />
+        android:background="?selectableItemBackground"
+        android:onClick="@{adapter::onClick}"
+        android:paddingBottom="16dp">
 
-    <ImageView
-        android:id="@+id/profile_pic"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/twitter_logo"
-        android:layout_marginStart="16dp" />
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="14dp"
+            android:layout_marginStart="14dp"
+            android:layout_marginTop="16dp"
+            android:text="@{status.name}"
+            android:textColor="@color/blue"
+            android:textSize="@dimen/text_size_14"
+            app:layout_constraintLeft_toRightOf="@+id/profile_pic"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/username"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="\@username"
-        android:textSize="@dimen/text_size_10"
-        android:textColor="@color/green"
-        app:layout_constraintLeft_toRightOf="@+id/profile_pic"
-        android:layout_marginLeft="14dp"
-        app:layout_constraintTop_toBottomOf="@+id/name"
-        android:layout_marginStart="14dp" />
+        <ImageView
+            android:id="@+id/profile_pic"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:src="@{status.imageUrl}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            app:srcCompat="@drawable/twitter_logo" />
 
-    <TextView
-        android:id="@+id/status"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginTop="6dp"
-        android:text="TextView"
-        android:autoLink="web"
-        android:gravity="start"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/username"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp" />
+        <TextView
+            android:id="@+id/username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="14dp"
+            android:layout_marginStart="14dp"
+            android:text="@{status.username}"
+            android:textColor="@color/green"
+            android:textSize="@dimen/text_size_10"
+            app:layout_constraintLeft_toRightOf="@+id/profile_pic"
+            app:layout_constraintTop_toBottomOf="@+id/name" />
 
-    <ImageView
-        android:id="@+id/media_pic"
-        android:layout_width="344dp"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="16dp"
-        android:layout_marginStart="16dp"
-        app:layout_constraintRight_toRightOf="parent"
-        app:srcCompat="@mipmap/ic_launcher"
-        android:layout_marginTop="5dp"
-        app:layout_constraintTop_toBottomOf="@+id/status"
-        android:layout_marginLeft="16dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginEnd="16dp" />
+        <TextView
+            android:id="@+id/status"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="6dp"
+            android:autoLink="web"
+            android:gravity="start"
+            android:text="@{status.tweet}"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/username" />
 
-</android.support.constraint.ConstraintLayout>
+        <ImageView
+            android:id="@+id/media_pic"
+            android:layout_width="344dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="5dp"
+            android:src="@{status.mediaUrl}"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/status"
+            app:srcCompat="@mipmap/ic_launcher" />
+
+    </android.support.constraint.ConstraintLayout>
+</layout>
