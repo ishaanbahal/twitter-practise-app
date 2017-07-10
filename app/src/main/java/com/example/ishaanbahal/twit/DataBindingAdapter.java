@@ -1,4 +1,4 @@
-package com.example.ishaanbahal.twit.user;
+package com.example.ishaanbahal.twit;
 
 import android.databinding.BindingAdapter;
 import android.widget.ImageView;

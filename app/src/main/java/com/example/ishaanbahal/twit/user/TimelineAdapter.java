@@ -16,6 +16,8 @@ import android.widget.TextView;
 import com.example.ishaanbahal.twit.R;
 import com.example.ishaanbahal.twit.databinding.ItemTimelineBinding;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -25,6 +27,7 @@ import butterknife.ButterKnife;
 
 public class TimelineAdapter extends ArrayAdapter<Status> implements View.OnClickListener{
 
+    @Inject
     public TimelineAdapter(@NonNull Context context, @LayoutRes int resource) {
         super(context, resource);
     }
